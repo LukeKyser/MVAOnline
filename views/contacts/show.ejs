@@ -1,0 +1,21 @@
+<% include ../partials/header %> 
+
+<section id="popular" class="section">
+    <div class="container">
+		<ul class="collection with-header">
+			<li class="collection-header contact-item">
+				<h5><%= contact.name %></h5>
+				<form action="/contacts/<%=contact._id%>?_method=DELETE" method="POST">
+					<button class="btn-clear" style="margin: 10px; padding: 10px;"><i class="material-icons contact-del">delete</i></button>
+				</form>
+			</li>
+			<li class="collection-item"><%= contact.subject %></li>
+			<li class="collection-item"><%= contact.dateTime %></li>
+			<li class="collection-item"><%= contact.email %></li>
+			<li class="collection-item"><%= contact.phone %></li>
+			<li class="collection-item"><%= contact.message %></li>
+		</ul>
+	</div>
+</section>
+
+<% include ../partials/footer %>

@@ -1,0 +1,26 @@
+<% include ../partials/header %> 
+
+<section id="popular" class="section section-popular scrollspy">
+    <div class="container">
+        <div class="row">
+            <h4 class="center page-header">
+                <span class="span-header">Customer</span> Orders</h4>
+			<% orders.forEach(function(order){ %>
+            <div class="col s12 m4">
+                <div class="card">
+                    <div class="card-image card-image-index">
+                        <img src="<%= order.itemImage %>" alt="<%= order.itemName %>">
+                        <span class="card-title"><%= order.itemName %></span>
+                    </div>
+                    <div class="card-content">
+                        <p class="price"><%= order.buyerName %></p>
+                    </div>
+					<a href="/orders/<%= order._id %>" class="btn btn-custom">More Info</a>
+                </div>
+            </div>
+			<% }); %>
+        </div>
+    </div>
+</section>
+
+<% include ../partials/footer %>

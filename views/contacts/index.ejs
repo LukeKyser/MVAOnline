@@ -1,0 +1,33 @@
+<% include ../partials/header %> 
+
+<section id="popular" class="section">
+    <div class="container">
+		<h4 class="center page-header">
+                <span class="span-header">Message</span> Board</h4>
+		<br>
+		<br>
+		<div class="collection">
+			<% contacts.forEach(function(contact){ %>
+			<a href="/contacts/<%= contact._id %>" class="collection-item contact-item">
+				<div class="contact-message
+							<% if(contact.read){ %>
+							<% console.log("TTTEEESSSTTTTT::::: " + contact); %>
+							contact-read
+							<% } %>
+							">
+					<span class="contact-name"><%= contact.name %></span>
+					<span class="contact-subject"><%= contact.subject %></span>
+				</div>
+				<div class="contact-info">
+					<form action="/contacts/<%=contact._id%>?_method=DELETE" method="POST">
+						<button class="btn-clear"><i class="material-icons contact-del">delete</i></button>
+					</form>
+					<span class="contact-time"><%= contact.dateTime %></span>
+				</div>
+			</a>
+			<% }); %>
+		</div>
+    </div>
+</section>
+
+<% include ../partials/footer %>

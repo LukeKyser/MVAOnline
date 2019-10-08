@@ -1,0 +1,42 @@
+<% include ../partials/header %>
+    
+<div class="section-show">
+	<div class="row">
+		<div class="col s12 m12">
+			<div class="card" style="max-width: 50%; margin: 0 auto !important">
+				<div class="card-image">
+					<img src="<%= order.itemImage %>">
+					<span class="card-title"><%= order.itemName %></span>
+				</div>
+				<div class="card-content">
+					<p>Purchased by: <%= order.buyerName %></p>
+					<p>Email: <%= order.buyerEmail %></p>
+					<p>Phone: <%= order.buyerPhone %></p>
+					<p>Address: <%= order.buyerStreetAddress %></p>
+					<p>City/State: <%= order.buyerCityState %></p>
+					<p>Message: <%= order.buyerMessage %></p>
+					<p>Date/Time: <%= order.dateTime %></p>
+				</div>
+				<div class="card-action">
+					<h4 class="right price"><span class="span-price">$</span><%= order.itemPrice %></h4>
+					<form action="/orders/<%=order._id%>?_method=DELETE" method="POST">
+						<button class="btn btn-custom">DELETE</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="loader-container">
+	<div class="loading-screen">
+		<span class="load-bar load-bar1"></span>
+		<span class="load-bar load-bar2"></span>
+		<span class="load-bar load-bar3"></span>
+		<span class="load-bar load-bar4"></span>
+		<span class="load-bar load-bar5"></span>
+		<span class="load-bar load-bar6"></span>
+	</div>
+</div>
+
+<% include ../partials/footer %>

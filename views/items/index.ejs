@@ -1,0 +1,51 @@
+<% include ../partials/header %> 
+
+<section id="popular" class="section section-popular scrollspy">
+    <div class="container">
+        <div class="row">
+			<% if(currentUser){ %>
+                <a class="btn btn-custom" href="/items/new">New Item</a>
+            <% } %>
+            <h4 class="center page-header">
+                <span class="span-header">Art</span> Shop</h4>
+			<% items.forEach(function(item){ %>
+            <div class="col s12 m6 l4">
+                <div class="card">
+                    <div class="card-image card-image-index">
+                        <img src="<%= item.profile %>" alt="<%= item.name %>">
+                        <span class="card-title"><%= item.name %></span>
+                    </div>
+                    <div class="card-content">
+                        <h4 class="right price"><span class="span-price">$</span><%= item.price %></h4>
+						<a href="/items/<%= item._id %>" class="btn btn-custom">More Info</a>
+                    </div>
+                </div>
+            </div>
+			<% }); %>
+        </div>
+		
+			<ul class="pagination center">
+				
+				<% if(page > 1){ %>
+				<li class="waves-effect"><a href="/items/page/<%= parseInt(page) - 1 %>"><i class="material-icons">chevron_left</i></a></li>
+				<% } %>
+				
+				<% links.forEach(function(link){ %>
+				<li class="
+						   <% if(page == link){ %>
+						   active
+						   <% } else {%>
+						   waves-effect
+						   <% } %>
+						   "><a href="/items/page/<%= link %>"><%= link %></a></li>
+				<% }); %>
+				
+				<% if(page < pages){ %>
+				<li class="waves-effect"><a href="/items/page/<%= parseInt(page) + 1 %>"><i class="material-icons">chevron_right</i></a></li>
+				<% } %>
+			</ul>
+		
+    </div>
+</section>
+
+<% include ../partials/footer %>

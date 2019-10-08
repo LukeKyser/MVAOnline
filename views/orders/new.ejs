@@ -1,0 +1,66 @@
+<% include ../partials/header %>
+
+
+<section id="contact" class="section section-contact scrollspy">
+    <div class="container">
+		<form action="/orders/<%= item._id %>/pay" method="POST">
+			<div class="row">
+				<div class="col s12 m6">
+					<div class="card">
+						<div class="card-panel card-image glow-card center">
+							<img src="<%= item.profile %>" name="itemImage">
+							<span class="card-title ct-show"><%= item.name %></span>
+						</div>
+					</div>
+					<ul class="collection with-header">
+						<li class="collection-header glow-card">
+							<h4 name="itemName" class="center"><%= item.name %></h4>
+						</li>
+						<li class="collection-item center" name="itemPrice">$<%= item.price %></li>
+						<li class="collection-item center" name="itemDescription"><%= item.description %></li>
+					</ul>
+				</div>
+				<div class="col s12 m6">
+					<div class="card-panel glow-card">
+						<h5>Please fill out this form</h5>
+						<div class="input-field">
+							<input type="text" placeholder="Name" id="name" name="buyerName" required>
+							<label for="name">Name</label>
+						</div>
+						<div class="input-field">
+							<input type="email" placeholder="Email" id="email" name="buyerEmail" required>
+							<label for="email">Email</label>
+						</div>
+						<div class="input-field">
+							<input type="text" placeholder="Phone" id="phone" name="buyerPhone" required>
+							<label for="phone">Phone</label>
+						</div>
+						<br>
+						<p>Shipping Address</p>
+						<br>
+						<div class="input-field">
+							<input type="text" placeholder="1234 Some St." id="streetAddress" name="buyerStreetAddress" required>
+							<label for="phone">Street Address</label>
+						</div>
+						<div class="input-field">
+							<input type="text" placeholder="City, State Zip" id="cityState" name="buyerCityState" required>
+							<label for="phone">City/State/Zip</label>
+						</div>
+						<div class="input-field">
+							<textarea class="materialize-textarea" placeholder="Enter Message" id="message" name="buyerMessage"></textarea>
+							<label for="message">Message</label>
+						</div>
+						<p class="fine-print">If you would like to arrange another method for receiving your purchase, explain in detail in the message section above. Otherwise the package will be sent to the shipping address included.</p>
+						<p class="fine-print">Any other payment methods can be used to purchase this item but must be handled in the <a href="/contacts/new">contact</a> section. This item will remain available for purchase on this site until the full payment has been made and store inventory is updated.</p>
+						<p class="fine-print">Checking out with PayPal below will guarantee your purchase.</p>
+						<button class="btn btn-paypal"></button>
+						<a href="javascript:history.back()" class="btn btn-custom">Go Back</a>
+					</div>
+				</div>
+			</div>
+		</form>
+    </div>
+</section>
+
+<% include ../partials/footer %>
+

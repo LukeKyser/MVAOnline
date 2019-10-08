@@ -1,0 +1,64 @@
+<% include ../partials/header %>
+
+<div class="section-show">
+	
+	<div class="flex-container">
+		<div class="image-container">
+			<div class="card super">
+				<div class="card-image" onmouseenter="slideshowForward()">
+					<img src="<%= images.img1 %>" id="image1">
+					<img src="<%= images.img2 %>" id="image2">
+				</div>
+			</div>
+			<div class="item-info-content image-info">
+				<div class="img-btn" id="zoom"><i class="small material-icons">zoom_out_map</i></div>
+				<div class="img-btn" id="image"><i class="small material-icons">gradient</i></div>
+			</div>
+		</div>
+		<div class="item-info-section">
+			<div class="item-info-content">
+				<h5><%= item.name %></h5>
+				<p><%= item.description %></p>
+				<p><%= item.size %></p>
+				<p><%= item.canvas %></p>
+			</div>
+			<div class="item-info-content">
+				<h4 style="letter-spacing: 1px;"><span class="span-price">$</span> <%= item.price %></h4>
+			</div>
+			<div class="item-info-content">
+				<a href="/orders/<%= item._id %>/new" class="btn btn-custom">Buy This</a>
+				<a href="javascript:history.back()" class="btn btn-custom">Go Back</a>
+			</div>
+			<% if(currentUser){ %>
+			<div class="item-info-content">
+				<a class="btn btn-custom" href="/items/<%= item._id %>/edit">Edit Item</a>
+				<form style="display: inline" class="pull-right" action="/items/<%=item._id%>?_method=DELETE" method="POST">
+					<button class="btn btn-custom">DELETE</button>
+				</form>
+			</div>
+			<% } %>
+			<div class="item-info-content">
+				<p class="subheader">Shipping</p>
+				<p class="list-item">- <%= item.description %></p>
+				<p class="list-item">- <%= item.description %></p>
+				<p class="list-item">- <%= item.description %></p>
+			</div>
+		</div>
+	</div>
+	
+</div>
+
+<div class="loader-container">
+	<div class="loading-screen">
+		<span class="load-bar load-bar1"></span>
+		<span class="load-bar load-bar2"></span>
+		<span class="load-bar load-bar3"></span>
+		<span class="load-bar load-bar4"></span>
+		<span class="load-bar load-bar5"></span>
+		<span class="load-bar load-bar6"></span>
+	</div>
+</div>
+
+
+
+<% include ../partials/footer %>

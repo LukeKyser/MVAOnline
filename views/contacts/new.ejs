@@ -1,0 +1,61 @@
+<% include ../partials/header %>
+
+<section id="contact" class="section section-contact scrollspy">
+    <div class="container">
+		<div class="text-glitch middle-glitch" data-text="Contact_">
+			Contact<span id="prompt">_</span>
+		</div>
+		<div class="popup 
+					<% if(popup){ %>
+					popup-on
+					<% } %>
+					">MESSAGE SENT!</div>
+        <div class="row" style="margin-top: 80px">
+            <div class="col s12 m6">
+                <div class="card-panel center" id="contact-section1">
+                    <i class="material-icons medium">email</i>
+                    <h5>Contact Me For Business</h5>
+                    <p>Let me know if you would like to set up a showing at your establishment! Or if you are interested in making a purchase outside of the online store, I'd be happy to make other arrangements. Make sure to include painting and payment information in the message.</p>
+                </div>
+                <ul class="collection with-header" id="contact-section2">
+                    <li class="collection-header">
+                        <h4>Mike Veeser Art</h4>
+                    </li>
+                    <li class="collection-item">Location</li>
+                    <li class="collection-item">555 SE My Block, Suite Sugar Pie</li>
+                    <li class="collection-item">Portland OR, 97206</li>
+                </ul>
+            </div>
+            <div class="col s12 m6">
+                <div class="card-panel" id="contact-section3">
+                    <h5>Leave Me Your Info</h5>
+					<form action="../contacts/new" method="post">
+						<div class="input-field">
+							<input type="text" placeholder="Name" id="name" name="name" required>
+							<label for="name">Name</label>
+						</div>
+						<div class="input-field">
+							<input type="email" placeholder="Email" id="email" name="email" required>
+							<label for="email">Email</label>
+						</div>
+						<div class="input-field">
+							<input type="text" placeholder="Phone" id="phone" name="phone">
+							<label for="phone">Phone</label>
+						</div>
+						<div class="input-field">
+							<input type="text" placeholder="Subject" id="subject" name="subject">
+							<label for="phone">Subject</label>
+						</div>
+						<div class="input-field">
+							<textarea class="materialize-textarea" placeholder="Enter Message" id="message" name="message" required></textarea>
+							<label for="message">Message</label>
+						</div>
+						<input type="submit" value="Submit" class="btn btn-custom">
+					</form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<% include ../partials/footer %>
