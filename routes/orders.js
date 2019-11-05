@@ -11,7 +11,7 @@ const date 				= require('date-and-time');
 const CONST				= require("../constants");
 
 paypal.configure({
-  'mode': 'sandbox', //sandbox or live
+  'mode': 'sandbox', // sandbox or live
   'client_id': CONST.PAYPAL_CLIENT_ID,
   'client_secret': CONST.PAYPAL_CLIENT_SECRET
 });
@@ -28,7 +28,7 @@ router.get("/", middleware.isLoggedIn, function(req, res){
 });
 
 
-// NEW
+//NEW
 router.get("/:id/new", function(req, res){
 	Item.findById(req.params.id, function(err, foundItem){
 		if(err){
@@ -40,7 +40,7 @@ router.get("/:id/new", function(req, res){
 });
 
 
-// PAY
+//PAY
 router.post("/:id/pay", function(req, res){
 	createOrder(req, req.params.id, false, function(returnedOrder, returnedItem){
 		const create_payment_json = {
@@ -84,7 +84,7 @@ router.post("/:id/pay", function(req, res){
 	});
 });
 
-// SUCCESS
+//SUCCESS
 router.get('/:orderId/:itemId/success', function(req, res){
   
 	createReport(req.params.orderId, function(returnedOrder){
@@ -117,14 +117,14 @@ router.get('/:orderId/:itemId/success', function(req, res){
 	});
 });
 
-// HOLD
+//HOLD
 router.post("/:id/hold", function(req, res){
 	createOrder(req, req.params.id, true, function(returnedOrder, returnedItem){
 		res.render("orders/receipt", {order: returnedOrder});
 	});
 });
 
-// FINALIZE
+//FINALIZE
 router.get('/:orderId/finalize', function(req, res){
 	createReport(req.params.orderId, function(returnedOrder){
 		res.redirect("/orders/" + returnedOrder._id);
@@ -132,7 +132,7 @@ router.get('/:orderId/finalize', function(req, res){
 });
 
 
-// SHOW
+//SHOW
 router.get("/:id", middleware.isLoggedIn, function(req, res){
 	Order.findById(req.params.id).exec(function(err, foundOrder){
 		if(err){

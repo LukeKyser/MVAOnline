@@ -9,7 +9,7 @@ const middleware 	= require("../middleware");
 const date 			= require('date-and-time');
 
 
-// INDEX
+//INDEX
 router.get("/", middleware.isLoggedIn, function(req, res){
 	Contact.find({}, function(err, allContacts){
 		if(err){

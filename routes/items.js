@@ -16,7 +16,7 @@ cloudinary.config({
 	api_secret: CONST.CLOUDINARY_API_SECRET
 });
 
-/////////////////////////////////////
+///////////////////////////////////
 
 //INDEX
 router.get("/page/:num", function(req, res){

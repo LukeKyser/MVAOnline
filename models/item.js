@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+
 var itemSchema = new mongoose.Schema({
 	name: String,
 	description: String,
@@ -15,5 +16,6 @@ var itemSchema = new mongoose.Schema({
 	},
 	hold: Boolean
 });
+
 
 module.exports = mongoose.model("Item", itemSchema);

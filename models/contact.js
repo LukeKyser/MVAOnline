@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+
 var contactSchema = new mongoose.Schema({
 	name: String,
 	email: String,
@@ -9,5 +10,6 @@ var contactSchema = new mongoose.Schema({
 	message: String,
 	read: Boolean
 });
+
 
 module.exports = mongoose.model("Contact", contactSchema);

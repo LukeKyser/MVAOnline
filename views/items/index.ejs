@@ -1,5 +1,6 @@
 <% include ../partials/header %> 
 
+
 <section id="popular" class="section section-popular scrollspy">
     <div class="container">
         <div class="row">
@@ -27,29 +28,25 @@
             </div>
 			<% }); %>
         </div>
-		
-			<ul class="pagination center">
-				
-				<% if(page > 1){ %>
-				<li class="waves-effect"><a href="/items/page/<%= parseInt(page) - 1 %>"><i class="material-icons">chevron_left</i></a></li>
-				<% } %>
-				
-				<% links.forEach(function(link){ %>
-				<li class="
-						   <% if(page == link){ %>
-						   active
-						   <% } else {%>
-						   waves-effect
-						   <% } %>
-						   "><a href="/items/page/<%= link %>"><%= link %></a></li>
-				<% }); %>
-				
-				<% if(page < pages){ %>
-				<li class="waves-effect"><a href="/items/page/<%= parseInt(page) + 1 %>"><i class="material-icons">chevron_right</i></a></li>
-				<% } %>
-			</ul>
-		
+		<ul class="pagination center">
+			<% if(page > 1){ %>
+			<li class="waves-effect"><a href="/items/page/<%= parseInt(page) - 1 %>"><i class="material-icons">chevron_left</i></a></li>
+			<% } %>
+			<% links.forEach(function(link){ %>
+			<li class="
+					   <% if(page == link){ %>
+					   active
+					   <% } else {%>
+					   waves-effect
+					   <% } %>
+					   "><a href="/items/page/<%= link %>"><%= link %></a></li>
+			<% }); %>
+			<% if(page < pages){ %>
+			<li class="waves-effect"><a href="/items/page/<%= parseInt(page) + 1 %>"><i class="material-icons">chevron_right</i></a></li>
+			<% } %>
+		</ul>
     </div>
 </section>
+
 
 <% include ../partials/footer %>

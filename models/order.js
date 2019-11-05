@@ -1,5 +1,6 @@
 const mongoose 	= require("mongoose");
 
+
 var orderSchema = new mongoose.Schema({
     itemName: String,
     itemImage: String,
@@ -20,5 +21,6 @@ var orderSchema = new mongoose.Schema({
 	dateTime: String,
 	paid: Boolean
 });
+
 
 module.exports = mongoose.model("Order", orderSchema);

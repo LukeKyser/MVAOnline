@@ -8,13 +8,13 @@ const Contact		= require("../models/contact");
 const middleware 	= require("../middleware");
 
 
-// LANDING
+//LANDING
 router.get("/", function(req, res){
     res.render("landing");
 });
 
 
-// GALLERY
+//GALLERY
 router.get("/gallery", function(req, res){
 	Images.find({}, function(err, allImages){
 		if(err){
@@ -35,7 +35,7 @@ router.delete("/gallery/:id", function(req, res){
 });
 
 
-// REPORT
+//REPORT
 router.get("/reports", middleware.isLoggedIn, function(req, res){
 	Report.find({}, function(err, allReports){
        if(err){
@@ -47,7 +47,7 @@ router.get("/reports", middleware.isLoggedIn, function(req, res){
 });
 
 
-// DELETE
+//DELETE
 router.delete("/:reportId/remove", function(req, res){
     Report.findByIdAndRemove(req.params.reportId, function(err){
         if(err){
@@ -59,7 +59,7 @@ router.delete("/:reportId/remove", function(req, res){
 });
 
 
-// REGISTER
+//REGISTER
 router.get("/register", function(req, res){
    res.render("register"); 
 });
@@ -79,7 +79,7 @@ router.post("/register", function(req, res){
 });
 
 
-// LOGIN
+//LOGIN
 router.get("/login", function(req, res){
 	res.render("login"); 
 });
@@ -92,7 +92,7 @@ router.post("/login", passport.authenticate("local",
 });
 
 
-// LOGOUT
+//LOGOUT
 router.get("/logout", function(req, res){
    req.logout();
    req.flash("success", "LOGGED YOU OUT!");
