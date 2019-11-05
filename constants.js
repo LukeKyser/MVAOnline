@@ -6,17 +6,17 @@ const constArr = {
 	PROCESS_ENV_IP: null,
 	
 	//PAYPAL
-	PAYPAL_REDIRECT_RETURN_URL: "https://instabammer.run.goorm.io/orders/",
-	PAYPAL_CLIENT_ID: "AckJECtFqvJhOJIY9sp-iuPJOTWQuutLmtIqplecgNGpwWo-nG8tHaHGS1Izgj3kehG305P_Q1ZXPYse",
-	PAYPAL_CLIENT_SECRET: "EB23iI0xWnOJswZSfGCyGNptPecjsG9LxuT44HEw1S58KmNN4tE4gOhIAp8LyJvJpnpoKPOJQzzQ76BI",
+	PAYPAL_REDIRECT_RETURN_URL: "",
+	PAYPAL_CLIENT_ID: "",
+	PAYPAL_CLIENT_SECRET: "",
 	
 	//CLOUDINARY
-	CLOUDINARY_CLOUD_NAME: "lukekysercloud",
-	CLOUDINARY_API_KEY: "836755637141421",
-	CLOUDINARY_API_SECRET: "2sfLjnRsVFwqQwnqL4FgyqEDt7A",
+	CLOUDINARY_CLOUD_NAME: "",
+	CLOUDINARY_API_KEY: "",
+	CLOUDINARY_API_SECRET: "",
 	
 	//MONGODB
-	MONGODB_CONNECT_PASSWORD: "mongodb+srv://lukekyser:disciasci0@cluster0-vip1a.mongodb.net/mvadb?retryWrites=true"
+	MONGODB_CONNECT_PASSWORD: ""
 }
 
 // HEROKU
@@ -26,17 +26,17 @@ const constArr = {
 // 	PROCESS_ENV_IP: process.env.IP,
 	
 // 	//PAYPAL
-// 	PAYPAL_REDIRECT_RETURN_URL: "https://mikeveeserart.herokuapp.com/orders/",
-// 	PAYPAL_CLIENT_ID: "AckJECtFqvJhOJIY9sp-iuPJOTWQuutLmtIqplecgNGpwWo-nG8tHaHGS1Izgj3kehG305P_Q1ZXPYse",
-// 	PAYPAL_CLIENT_SECRET: "EB23iI0xWnOJswZSfGCyGNptPecjsG9LxuT44HEw1S58KmNN4tE4gOhIAp8LyJvJpnpoKPOJQzzQ76BI",
+// 	PAYPAL_REDIRECT_RETURN_URL: "",
+// 	PAYPAL_CLIENT_ID: "",
+// 	PAYPAL_CLIENT_SECRET: "",
 	
 // 	//CLOUDINARY
-// 	CLOUDINARY_CLOUD_NAME: "lukekysercloud",
-// 	CLOUDINARY_API_KEY: "836755637141421",
-// 	CLOUDINARY_API_SECRET: "2sfLjnRsVFwqQwnqL4FgyqEDt7A",
+// 	CLOUDINARY_CLOUD_NAME: "",
+// 	CLOUDINARY_API_KEY: "",
+// 	CLOUDINARY_API_SECRET: "",
 	
 // 	//MONGODB
-// 	MONGODB_CONNECT_PASSWORD: "mongodb+srv://lukekyser:disciasci0@cluster0-vip1a.mongodb.net/mvadb?retryWrites=true"
+// 	MONGODB_CONNECT_PASSWORD: ""
 // }
  
 module.exports = constArr;
