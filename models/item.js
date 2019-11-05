@@ -12,7 +12,8 @@ var itemSchema = new mongoose.Schema({
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "Images"
 		}
-	}
+	},
+	hold: Boolean
 });
 
 module.exports = mongoose.model("Item", itemSchema);

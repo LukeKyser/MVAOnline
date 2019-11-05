@@ -5,13 +5,20 @@ var orderSchema = new mongoose.Schema({
     itemImage: String,
     itemDescription: String,
     itemPrice: String,
+	itemID: {
+		id: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "Item"
+		}
+	},
     buyerName: String,
     buyerEmail: String,
 	buyerPhone: String,
 	buyerStreetAddress: String,
 	buyerCityState: String,
 	buyerMessage: String,
-	dateTime: String
+	dateTime: String,
+	paid: Boolean
 });
 
 module.exports = mongoose.model("Order", orderSchema);

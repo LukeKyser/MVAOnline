@@ -9,33 +9,30 @@
 					<span class="card-title"><%= order.itemName %></span>
 				</div>
 				<div class="card-content">
-					<p>Purchased by: <%= order.buyerName %></p>
+					<p>Buyer Name by: <%= order.buyerName %></p>
 					<p>Email: <%= order.buyerEmail %></p>
 					<p>Phone: <%= order.buyerPhone %></p>
 					<p>Address: <%= order.buyerStreetAddress %></p>
 					<p>City/State: <%= order.buyerCityState %></p>
 					<p>Message: <%= order.buyerMessage %></p>
 					<p>Date/Time: <%= order.dateTime %></p>
+					<% if(order.paid){ %>
+					<h5><span class="span-price">PAID</span></h5>
+					<% } else { %>
+					<h5><span class="span-price">NOT PAID</span></h5>
+					<% } %>
 				</div>
 				<div class="card-action">
 					<h4 class="right price"><span class="span-price">$</span><%= order.itemPrice %></h4>
-					<form action="/orders/<%=order._id%>?_method=DELETE" method="POST">
-						<button class="btn btn-custom">DELETE</button>
+					<form method="POST">
+						<button formaction="/orders/<%=order._id%>?_method=DELETE" class="btn btn-custom-delete">DELETE</button>
+						<% if(!order.paid){ %>
+						<button formaction="/orders/<%=order._id%>/finalize?_method=GET" class="btn btn-custom">FINALIZE</button>
+						<% } %>
 					</form>
 				</div>
 			</div>
 		</div>
-	</div>
-</div>
-
-<div class="loader-container">
-	<div class="loading-screen">
-		<span class="load-bar load-bar1"></span>
-		<span class="load-bar load-bar2"></span>
-		<span class="load-bar load-bar3"></span>
-		<span class="load-bar load-bar4"></span>
-		<span class="load-bar load-bar5"></span>
-		<span class="load-bar load-bar6"></span>
 	</div>
 </div>
 

@@ -42,146 +42,92 @@ router.get("/:id/new", function(req, res){
 
 // PAY
 router.post("/:id/pay", function(req, res){
-	const tempTime 		= new Date();
-	const dateTimePST	= date.addHours(tempTime, -7);
-	
-	Item.findById(req.params.id, function(err, foundItem){
-		if(err){
-			console.log(err);
-		} else {
-			const itemName 				= foundItem.name;
-			const itemImage 			= foundItem.profile;
-			const itemDescription 		= foundItem.description;
-			const itemPrice 			= foundItem.price;
-			const buyerName 			= req.body.buyerName;
-			const buyerEmail 			= req.body.buyerEmail;
-			const buyerPhone 			= req.body.buyerPhone;
-			const buyerStreetAddress 	= req.body.buyerStreetAddress;
-			const buyerCityState 		= req.body.buyerCityState;
-			const buyerMessage 			= req.body.buyerMessage;
-			const dateTime				= date.format(dateTimePST, 'YYYY/MM/DD HH:mm:ss');
-			const newOrder = {
-				itemName: itemName,
-				itemImage: itemImage,
-				itemDescription: itemDescription,
-				itemPrice: itemPrice,
-				buyerName: buyerName,
-				buyerEmail: buyerEmail,
-				buyerPhone: buyerPhone,
-				buyerStreetAddress: buyerStreetAddress,
-				buyerCityState: buyerCityState,
-				buyerMessage: buyerMessage,
-				dateTime: dateTime
-			};
-			
-			Order.create(newOrder, function(err, newlyCreated){
-				if(err){
-					console.log(err);
-				} else {
-					const create_payment_json = {
-						"intent": "sale",
-						"payer": {
-							"payment_method": "paypal"
-						},
-						"redirect_urls": {
-							"return_url": CONST.PAYPAL_REDIRECT_RETURN_URL + newlyCreated._id + "/" + req.params.id + "/success",
-							"cancel_url": "/cancel"
-						},
-						"transactions": [{
-							"item_list": {
-								"items": [{
-									"name": foundItem.name,
-									"sku": "001",
-									"price": foundItem.price,
-									"currency": "USD",
-									"quantity": 1
-								}]
-							},
-							"amount": {
-								"currency": "USD",
-								"total": foundItem.price
-							},
-							"description": foundItem.description
-						}]
-					};
+	createOrder(req, req.params.id, false, function(returnedOrder, returnedItem){
+		const create_payment_json = {
+			"intent": "sale",
+			"payer": {
+				"payment_method": "paypal"
+			},
+			"redirect_urls": {
+				"return_url": CONST.PAYPAL_REDIRECT_RETURN_URL + returnedOrder._id + "/" + req.params.id + "/success",
+				"cancel_url": "/cancel"
+			},
+			"transactions": [{
+				"item_list": {
+					"items": [{
+						"name": returnedItem.name,
+						"sku": "001",
+						"price": returnedItem.price,
+						"currency": "USD",
+						"quantity": 1
+					}]
+				},
+				"amount": {
+					"currency": "USD",
+					"total": returnedItem.price
+				},
+				"description": returnedItem.description
+			}]
+		};
 
-					paypal.payment.create(create_payment_json, function (error, payment) {
-					  if (error) {
-						  throw error;
-					  } else {
-						  for(let i = 0;i < payment.links.length;i++){
-							if(payment.links[i].rel === 'approval_url'){
-							  res.redirect(payment.links[i].href);
-							}
-						  }
-					  }
-					});
+		paypal.payment.create(create_payment_json, function (error, payment) {
+			if (error) {
+				throw error;
+			} else {
+				for(let i = 0;i < payment.links.length;i++){
+					if(payment.links[i].rel === 'approval_url'){
+					res.redirect(payment.links[i].href);
+					}
 				}
-			});
-		}
+			}
+		});
 	});
 });
 
 // SUCCESS
 router.get('/:orderId/:itemId/success', function(req, res){
   
-	Order.findById(req.params.orderId, function(err, foundOrder){
-		if(err){
-			console.log(err);
-		} else {
-			const payerId = req.query.PayerID;
-			const paymentId = req.query.paymentId;
+	createReport(req.params.orderId, function(returnedOrder){
+		const payerId = req.query.PayerID;
+		const paymentId = req.query.paymentId;
 
-			const execute_payment_json = {
-				"payer_id": payerId,
-				"transactions": [{
-					"amount": {
-						"currency": "USD",
-						"total": foundOrder.itemPrice
-					}
-				}]
-			};
-
-			paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
-				if (error) {
-					console.log(error.response);
-					Order.findByIdAndRemove(req.params.id, function(err){
-						if(err){
-							console.log("Delete Error");
-						}
-					});
-					throw error;
-				} else {
-					var newReport = {
-						itemName: foundOrder.itemName,
-						itemImage: foundOrder.itemImage,
-						itemDescription: foundOrder.itemDescription,
-						itemPrice: foundOrder.itemPrice,
-						buyerName: foundOrder.buyerName,
-						buyerEmail: foundOrder.buyerEmail,
-						buyerPhone: foundOrder.buyerPhone,
-						buyerStreetAddress: foundOrder.buyerStreetAddress,
-						buyerCityState: foundOrder.buyerCityState,
-						buyerMessage: foundOrder.buyerMessage,
-						dateTime: foundOrder.dateTime
-					};
-					
-					Report.create(newReport, function(err){
-						if(err){
-							console.log(err);
-						} else {
-							Item.findByIdAndRemove(req.params.itemId, function(err){
-								if(err){
-									console.log(err);
-								} else {
-									res.render("orders/receipt", {order: foundOrder});
-								}
-							});
-						}
-					});
+		const execute_payment_json = {
+			"payer_id": payerId,
+			"transactions": [{
+				"amount": {
+					"currency": "USD",
+					"total": returnedOrder.itemPrice
 				}
-			});
-		}
+			}]
+		};
+
+		paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
+			if (error) {
+				console.log(error.response);
+				Order.findByIdAndRemove(req.params.orderId, function(err){
+					if(err){
+						console.log("Delete Error");
+					}
+				});
+				throw error;
+			} else {
+				res.render("orders/receipt", {order: returnedOrder});
+			}
+		});
+	});
+});
+
+// HOLD
+router.post("/:id/hold", function(req, res){
+	createOrder(req, req.params.id, true, function(returnedOrder, returnedItem){
+		res.render("orders/receipt", {order: returnedOrder});
+	});
+});
+
+// FINALIZE
+router.get('/:orderId/finalize', function(req, res){
+	createReport(req.params.orderId, function(returnedOrder){
+		res.redirect("/orders/" + returnedOrder._id);
 	});
 });
 
@@ -209,7 +155,83 @@ router.delete("/:orderId",middleware.isLoggedIn, function(req, res){
     });
 });
 
+function createOrder(req, itemId, hold, callback){
+	const tempTime 		= new Date();
+	const dateTimePST	= date.addHours(tempTime, -7);
+	
+	Item.findById(itemId, function(err, foundItem){
+		if(err){
+			console.log(err);
+		} else {
+			const newOrder = {
+				itemName: foundItem.name,
+				itemImage: foundItem.profile,
+				itemDescription: foundItem.description,
+				itemPrice: foundItem.price,
+				itemID: { id: foundItem._id },
+				buyerName: req.body.buyerName,
+				buyerEmail: req.body.buyerEmail,
+				buyerPhone: req.body.buyerPhone,
+				buyerStreetAddress: req.body.buyerStreetAddress,
+				buyerCityState: req.body.buyerCityState,
+				buyerMessage: req.body.buyerMessage,
+				dateTime: date.format(dateTimePST, 'YYYY/MM/DD HH:mm:ss'),
+				paid: !hold
+			};
+			
+			Order.create(newOrder, function(err, newlyCreatedOrder){
+				if(err){
+					console.log(err);
+				} else {
+					foundItem.hold = hold;
+					Item.findByIdAndUpdate(foundItem._id, foundItem, function(err){
+						if(err){
+							console.log(err);
+						} else {
+							callback(newlyCreatedOrder, foundItem);
+						}
+					});
+				}
+			});
+		}
+	});
+}
 
+function createReport(orderId, callback){
+	Order.findById(orderId, function(err, foundOrder){
+		if(err){
+			console.log(err);
+		} else {
+			var newReport = {
+				itemName: foundOrder.itemName,
+				itemImage: foundOrder.itemImage,
+				itemDescription: foundOrder.itemDescription,
+				itemPrice: foundOrder.itemPrice,
+				buyerName: foundOrder.buyerName,
+				buyerEmail: foundOrder.buyerEmail,
+				buyerPhone: foundOrder.buyerPhone,
+				buyerStreetAddress: foundOrder.buyerStreetAddress,
+				buyerCityState: foundOrder.buyerCityState,
+				buyerMessage: foundOrder.buyerMessage,
+				dateTime: foundOrder.dateTime
+			};
+
+			Report.create(newReport, function(err){
+				if(err){
+					console.log(err);
+				} else {
+					Item.findByIdAndRemove(foundOrder.itemID.id, function(err){
+						if(err){
+							console.log(err);
+						} else {
+							callback(foundOrder);
+						}
+					});
+				}
+			});
+		}
+	});
+}
 
 module.exports = router;
 

@@ -8,7 +8,11 @@
                 <div class="card-panel glow-card center">
                     <i class="material-icons medium">thumb_up</i>
                     <h5>Thank You, <%= order.buyerName %>!</h5>
+					<% if(order.paid){ %>
                     <p>Your package will be sent to you in some manner</p>
+					<% } else { %>
+					<p>Your purchase will be arranged as soon as we get in touch. You'll be hearing from me very soon!</p>
+					<% } %>
                 </div>
                 <ul class="collection with-header">
                     <li class="collection-header glow-card">

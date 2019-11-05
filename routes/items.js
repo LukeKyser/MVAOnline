@@ -55,32 +55,6 @@ router.get("/page/:num", function(req, res){
 
 //CREATE
 router.post("/", middleware.isLoggedIn, function(req, res){
-	// const image1 = "https://i.ibb.co/bmWz9Q0/Drexl-Small1.jpg";
-	// const image2 = "https://i.ibb.co/60TbwMS/Drexl-Small3.jpg";
-	
-	// const newImages = { img1: image1, img2: image2 };
-					
-	// Images.create(newImages, function(err, newImagesObj){
-	// 	if(err){
-	// 		console.log(err);
-	// 	} else {
-	// 		const name 			= req.body.name;
-	// 		const description 	= req.body.description;
-	// 		const size			= req.body.size;
-	// 		const price 		= req.body.price;
-	// 		const canvas		= req.body.canvas;
-	// 		const profile 		= newImages.img1;
-	// 		const images 		= { id: newImagesObj._id };
-	// 		const newItem 		= { name: name, description: description, size: size, price: price, canvas: canvas, profile: profile, images: images };
-	// 		Item.create(newItem, function(err){
-	// 			if(err){
-	// 				console.log(err);
-	// 			} else {
-	// 				res.redirect("/items/page/" + 1);
-	// 			}
-	// 		});
-	// 	}
-	// });
 	
 	const image1 = req.files.image1;
 	const image2 = req.files.image2;
@@ -99,14 +73,16 @@ router.post("/", middleware.isLoggedIn, function(req, res){
 						if(err){
 							console.log(err);
 						} else {
-							const name 			= req.body.name;
-							const description 	= req.body.description;
-							const size			= req.body.size;
-							const price 		= req.body.price;
-							const canvas		= req.body.canvas;
-							const profile 		= newImages.img1;
-							const images 		= { id: newImagesObj._id };
-							const newItem 		= { name: name, description: description, size: size, price: price, canvas: canvas, profile: profile, images: images };
+							const newItem 		= { 
+								name: req.body.name,
+								description: req.body.description,
+								size: req.body.size,
+								price: req.body.price,
+								canvas: req.body.canvas,
+								profile: newImages.img1,
+								images: { id: newImagesObj._id },
+								hold: false
+							};
 							Item.create(newItem, function(err){
 								if(err){
 									console.log(err);
@@ -152,7 +128,21 @@ router.get("/:id/edit", middleware.checkUserItem, function(req, res){
 });
 
 router.put("/:id", function(req, res){
-    var newData = {name: req.body.name, description: req.body.description, size: req.body.size, price: req.body.price, canvas: req.body.canvas};
+	var itemHold;
+	if(req.body.hold == "on"){
+		itemHold = true;
+	} else {
+		itemHold = false;
+	}
+    var newData = {
+		name: req.body.name,
+		description: req.body.description,
+		size: req.body.size,
+		price: req.body.price,
+		canvas: req.body.canvas,
+		hold: itemHold
+	};
+	
     Item.findByIdAndUpdate(req.params.id, {$set: newData}, function(err, item){
         if(err){
             req.flash("error", err.message);

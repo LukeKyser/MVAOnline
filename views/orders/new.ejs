@@ -3,7 +3,7 @@
 
 <section id="contact" class="section section-contact scrollspy">
     <div class="container">
-		<form action="/orders/<%= item._id %>/pay" method="POST">
+		<form method="POST">
 			<div class="row">
 				<div class="col s12 m6">
 					<div class="card">
@@ -53,7 +53,16 @@
 						<p class="fine-print">If you would like to arrange another method for receiving your purchase, explain in detail in the message section above. Otherwise the package will be sent to the shipping address included.</p>
 						<p class="fine-print">Any other payment methods can be used to purchase this item but must be handled in the <a href="/contacts/new">contact</a> section. This item will remain available for purchase on this site until the full payment has been made and store inventory is updated.</p>
 						<p class="fine-print">Checking out with PayPal below will guarantee your purchase.</p>
-						<button class="btn btn-paypal"></button>
+						
+						
+						
+						
+						<button type="submit" formaction="/orders/<%= item._id %>/pay" class="btn btn-paypal"></button>
+						<button type="submit" formaction="/orders/<%= item._id %>/hold" class="btn btn-custom">Pay Later</button>
+						
+						
+						
+						
 						<a href="javascript:history.back()" class="btn btn-custom">Go Back</a>
 					</div>
 				</div>

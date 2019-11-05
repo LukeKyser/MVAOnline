@@ -34,7 +34,7 @@
 						<td><%= report.buyerEmail %></td>
 						<td><%= report.buyerStreetAddress %> - <%= report.buyerCityState %></td>
 						<td>
-							<form action="/<%=report._id%>/remove?_method=DELETE" method="POST"><button class="btn btn-custom">DELETE</button></form>
+							<form action="/<%=report._id%>/remove?_method=DELETE" method="POST"><button class="btn btn-custom-delete">DELETE</button></form>
 						</td>
 					</tr>
 					<% }); %>

@@ -1,4 +1,6 @@
-const Item = require("../models/item");
+const Item 		= require("../models/item");
+const Order		= require("../models/order");
+const Report	= require("../models/report");
 
 module.exports = {
     isLoggedIn: function(req, res, next){

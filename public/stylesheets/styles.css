@@ -7,19 +7,39 @@
 
 body {
 	background-color: #262626;
-	background: linear-gradient(45deg, #23a6d5, var(--turq), var(--dark), var(--dark), var(--dark), var(--turq), #23a6d5);
-	background-size: 400% 400%;
+	/* background: linear-gradient(45deg, #23a6d5, var(--turq), var(--dark), var(--dark), var(--dark), var(--turq), #23a6d5); */
+	/* background: url("https://i.ibb.co/v1Ws6ZM/interstellar.png");
+	background-size: 200% 200%;
+	animation: bgFlow 40s ease infinite; */
+}
+
+.bg-main {
+	/* background: url("https://i.ibb.co/JRpTWyv/space.png"); */
+	background: url("https://i.ibb.co/vwV3r8n/space.png");
+	background-size: 50% 50%;
+	background-position:100% 50%;
+	width: 200%;
+	height: 200%;
+	position: fixed;
+	z-index: -10;
 	animation: bgFlow 40s ease infinite;
 }
-@media only screen and (max-width: 600px) {
+/* @media only screen and (max-width: 600px) {
 	body {
 		background-size: 200% 200%;
 	}
-}
+} */
 @keyframes bgFlow {
-    0%{background-position:0% 50%}
-	50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
+    0%
+    {
+        -webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+    }
+    100%
+    {
+        -webkit-transform: rotate(360deg);
+		transform: rotate(360deg);
+    }
 }
 
 ::-webkit-scrollbar {
@@ -197,6 +217,10 @@ body {
     color: var(--turq);
 }
 
+.hold-alert {
+	color: #ff0000;
+}
+
 .flex-container {
 	background-color: #eeeeee;
 	display: flex;
@@ -359,7 +383,53 @@ body {
     }
 }
 
-/*                   PAYPAL                      */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:active,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* ############################### */ 
+
+.icon-box {
+	color: #666;
+}
+
+.icon-box, .btn-custom {
+    background-color: #333 !important;
+    transition: .6s all !important;
+}
+.icon-box:hover,
+.icon-box:active,
+.btn-custom:hover,
+.btn-custom:active {
+    background-color: var(--turq) !important;
+    color: #fff;
+    text-shadow: 0 0 10px #fff;
+	-webkit-box-shadow: 0 0 15px 15px var(--turq);
+    box-shadow: 0 0 15px 15px var(--turq);
+}
+
+.btn-custom-delete {
+	background-color: #ff0000 !important;
+	transition: .6s all !important;
+}
+.btn-custom-delete:hover,
+.btn-custom-delete:active {
+	background-color: #ff0075 !important;
+	text-shadow: 0 0 10px #ffffff;
+	-webkit-box-shadow: 0 0 15px 15px #ff0075;
+    box-shadow: 0 0 15px 15px #ff0075;
+}
 
 .btn-paypal {
 	background-image: url("https://i.ibb.co/4SWFJvf/paypal.png");
@@ -375,34 +445,12 @@ body {
 	margin: 10px;
 }
 
-.close {
-    color: #aaaaaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
+.btn-clear {
+	border: none;
+	background: transparent;
 }
-
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-/* ############################### */ 
-
-
-.icon-box, .btn-custom {
-    background-color: #333333 !important;
-    color: #666666;
-    transition: .6s all !important;
-}
-.icon-box:hover, .btn-custom:hover {
-    background-color: var(--turq) !important;
-    color: #ffffff;
-    text-shadow: 0 0 10px #ffffff;
-	-webkit-box-shadow: 0 0 15px 15px var(--turq);
-    box-shadow: 0 0 15px 15px var(--turq);
+.btn-clear:hover {
+	cursor: pointer;
 }
 
 .admin-input {
@@ -481,14 +529,6 @@ body {
 
 .contact-time {
 	color: #bbbbbb;
-}
-
-.btn-clear {
-	border: none;
-	background: transparent;
-}
-.btn-clear:hover {
-	cursor: pointer;
 }
 
 .fine-print {

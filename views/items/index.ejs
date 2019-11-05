@@ -16,7 +16,11 @@
                         <span class="card-title"><%= item.name %></span>
                     </div>
                     <div class="card-content">
-                        <h4 class="right price"><span class="span-price">$</span><%= item.price %></h4>
+						<% if(item.hold){ %>
+						<h4 class="right hold-alert">ON HOLD</h4>
+						<% } else { %>
+						<h4 class="right price"><span class="span-price">$</span><%= item.price %></h4>
+						<% } %>
 						<a href="/items/<%= item._id %>" class="btn btn-custom">More Info</a>
                     </div>
                 </div>

@@ -26,7 +26,11 @@
 				<h4 style="letter-spacing: 1px;"><span class="span-price">$</span> <%= item.price %></h4>
 			</div>
 			<div class="item-info-content">
+				<% if(item.hold){ %>
+				<a disabled href="" class="btn btn-custom-delete">On Hold</a>
+				<% } else { %>
 				<a href="/orders/<%= item._id %>/new" class="btn btn-custom">Buy This</a>
+				<% } %>
 				<a href="javascript:history.back()" class="btn btn-custom">Go Back</a>
 			</div>
 			<% if(currentUser){ %>
